@@ -1,4 +1,4 @@
-angular.module('App').factory('Auth', function(FURL, $firebaseAuth, $firebaseArray, $firebaseObject, Utils) {
+angular.module('App').factory('Auth', function(FURL, $log, $firebaseAuth, $firebaseArray, $firebaseObject, Utils) {
 
 	//var ref = new Firebase(FURL);
 
@@ -17,10 +17,36 @@ angular.module('App').factory('Auth', function(FURL, $firebaseAuth, $firebaseArr
       );
     },
 
+    createProfile: function(uid, user) {
+      var profile = {
+				id: uid,
+        email: user.email,
+				registered_in: Date()
+      };
+
+      // If you want insert more data should modify register.html and modify your object.
+
+      /*
+      var profile = {
+				id: uid,
+        name: user.name,
+        lastname: user.lastname,
+        address: user.address,
+        email: user.email,
+				registered_in: Date()
+      };
+      */
+
+      var messagesRef = $firebaseArray(firebase.database().ref().child("users"));
+      messagesRef.$add(profile);
+      $log.log("User Saved");
+    },
+
     register: function(user) {
       return auth.$createUserWithEmailAndPassword(user.email, user.password)
         .then(function(firebaseUser) {
           console.log("User created with uid: " + firebaseUser.uid);
+          Auth.createProfile(firebaseUser.uid,user);
         })
         .catch(function(error) {
           console.log(error);

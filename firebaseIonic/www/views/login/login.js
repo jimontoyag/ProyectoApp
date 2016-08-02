@@ -14,7 +14,7 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
       
       $log.log("id del usuario:" + authData);
        Utils.hide();
-      $state.go('home');
+      $state.go('tab.home');
       $log.log("Starter page","Home");
 
       }, function(err) {
@@ -24,17 +24,81 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
     }
   };
   
+/* SEEMS NOT WORKING WELL
+
   $scope.loginWithGoogle =  function(){
-    //TODO Google
-  };
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+ firebase.auth().signInWithPopup(provider).then(function(result) {
+
+    $log.log("Authenticated successfully with payload:", angular.toJson(result));
+    $state.go('home');
   
-  $scope.loginWithFacebook =  function(){
-    //TODO facebook
-  };
-  
-  $scope.loginWithTwitter =  function(){
-    //TODO twitter
+  })
+  .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+  $log.error("error:", angular.toJson(error));
+});
+  ;
   };
 
+*/
+
+/* SEEMS NOT WORKING WELL
+  $scope.loginWithFacebook =  function(){
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+ firebase.auth().signInWithPopup(provider).then(function(result) {
+
+    $log.log("Authenticated successfully with payload:", angular.toJson(result));
+    $state.go('home');
+  
+  })
+  .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+  $log.error("error:", angular.toJson(error));
+});
+  ;
+  };
+  */
+  
+/* SEEMS NOT WORKING WELL
+  $scope.loginWithTwitter =  function(){
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+ firebase.auth().signInWithPopup(provider).then(function(result) {
+
+    $log.log("Authenticated successfully with payload:", angular.toJson(result));
+    $state.go('home');
+  
+  })
+  .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+  $log.error("error:", angular.toJson(error));
+});
+  ;
+  };
+*/
 
 });

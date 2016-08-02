@@ -2,6 +2,12 @@
 angular.module('App', ['ionic','ngStorage', 'ngCordova','firebase','ngMessages'])
 .config(function($stateProvider, $urlRouterProvider) {
 $stateProvider
+// setup an abstract state for the tabs directive
+      .state('tab', {
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'views/tabs.html'
+      })
     .state('login', {
       url: '/login',
       templateUrl: 'views/login/login.html',
@@ -17,19 +23,33 @@ $stateProvider
       templateUrl: 'views/register/register.html',
       controller:'registerController'
     })
-    .state('home', {
+    .state('tab.home', {
       url: '/home',
-      templateUrl: 'views/home/home.html',
-      controller:'homeController'
+      views: {
+        'home': {
+          templateUrl: 'views/home/home.html',
+          controller: 'homeController'
+        }
+      }
     })
-    .state('profile', {
+    .state('tab.profile', {
       url: '/profile',
-      templateUrl: 'views/profile/profile.html',
-      controller:'profileController'
-    })
+      views: {
+        'profile': {
+          templateUrl: 'views/profile/profile.html',
+          controller: 'profileController'
+        }
+    }})
     ;
 $urlRouterProvider.otherwise("/login");
 })
+
+.config(['$ionicConfigProvider', function($ionicConfigProvider) {
+
+    $ionicConfigProvider.tabs.position('bottom'); // other values: top
+
+}])
+
 // Changue this for your Firebase App URL.
 .constant('FURL', {
     apiKey: "AIzaSyABuEPq5zUUn1eMHf7RiOZy1ySmb4_9dWQ",

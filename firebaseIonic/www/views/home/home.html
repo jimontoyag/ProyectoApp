@@ -1,8 +1,14 @@
 <ion-view view-title="Home" hide-back-button="true">
         <ion-content class="padding-top">
-          <h1>Firebase 3 Starter </h1>
+        <ion-list>
+          <ion-item ng-repeat="task in items">
+            {{task.desc}}
+          </ion-item>
+        </ion-list>
+                 
           <!-- TODO Profile -->
           <!-- <button ng-click="profile()" class="button button-outline button-assertive">Profile</button> -->
           <button ng-click="logOut()" class="button button-full button-positive">Logout</button>
         </ion-content>
+
 </ion-view>
