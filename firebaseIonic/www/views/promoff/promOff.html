@@ -1,0 +1,26 @@
+<ion-view class=" " style="background-color: rgb(255, 255, 255);" id="page1" title="PromOff">
+    <ion-content scroll="true" class=" manual-remove-top-padding has-header">
+    <ion-refresher
+    pulling-text="Suelta para actualizar..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+    <div class="list card" ng-repeat="promo in promos">
+		  
+		  <div class="item item-body">		  			  			  	
+		    <img class="full-image" src="{{promo.urlImagen}}" height="150">
+		    <div class="item item-divider">
+			    <h2 align="left">{{promo.titulo}} </br> Se acaba en {{remainTime(promo)}}
+			    	<button class="button button-small button-balanced" style="float: right;">
+				  Ver mas
+				</button>
+			    </h2>
+			    
+		      
+		    			  </div>
+		    
+		  </div>
+
+		</div>
+        
+    </ion-content>
+</ion-view>

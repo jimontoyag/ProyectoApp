@@ -1,0 +1,1 @@
+EL proceso para publicar las promociones consiste en primero agregarla a promos/ y después con el UUID generado se agrega a promosActivas.

@@ -14,7 +14,7 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
       
       $log.log("id del usuario:" + authData);
        Utils.hide();
-      $state.go('tab.home');
+      $state.go('menu.promOff');
       $log.log("Starter page","Home");
 
       }, function(err) {

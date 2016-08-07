@@ -2,12 +2,7 @@
 angular.module('App', ['ionic','ngStorage', 'ngCordova','firebase','ngMessages'])
 .config(function($stateProvider, $urlRouterProvider) {
 $stateProvider
-// setup an abstract state for the tabs directive
-      .state('tab', {
-        url: '/tab',
-        abstract: true,
-        templateUrl: 'views/tabs.html'
-      })
+// setup an abstract state for the tabs directive      
     .state('login', {
       url: '/login',
       templateUrl: 'views/login/login.html',
@@ -23,23 +18,40 @@ $stateProvider
       templateUrl: 'views/register/register.html',
       controller:'registerController'
     })
-    .state('tab.home', {
-      url: '/home',
-      views: {
-        'home': {
-          templateUrl: 'views/home/home.html',
-          controller: 'homeController'
-        }
+    .state('menu.promOff', {
+    url: '/promos',
+    views: {
+      'side-menu21': {
+        templateUrl: 'views/promoff/promOff.html',
+        controller: 'promOffCtrl'
       }
-    })
-    .state('tab.profile', {
-      url: '/profile',
-      views: {
-        'profile': {
-          templateUrl: 'views/profile/profile.html',
-          controller: 'profileController'
-        }
-    }})
+    }
+  })
+  .state('menu.tienda', {
+    url: '/tienda',
+    views: {
+      'side-menu21': {
+        templateUrl: 'views/tienda/tienda.html',
+        controller: 'tiendaCtrl'
+      }
+    }
+  })
+
+  .state('menu.perfil', {
+    url: '/perfil',
+    views: {
+      'side-menu21': {
+        templateUrl: 'views/perfil/perfil.html',
+        controller: 'perfilCtrl'
+      }
+    }
+  })
+
+  .state('menu', {
+    url: '/side-menu21',
+    templateUrl: 'views/templates/menu.html',
+    abstract:true
+  })
     ;
 $urlRouterProvider.otherwise("/login");
 })
@@ -100,4 +112,4 @@ $urlRouterProvider.otherwise("/login");
       StatusBar.styleDefault();
     }
   });
-});
+})
