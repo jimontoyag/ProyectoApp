@@ -1,5 +1,5 @@
 'Use Strict';
-angular.module('App').factory('PromOffFactory', function($interval){
+angular.module('App').factory('PromOffFactory', function($interval,$log){
 
 	var promosLista={};	
 
@@ -9,12 +9,8 @@ angular.module('App').factory('PromOffFactory', function($interval){
 
   // Hace referencia a las promos de la ciudad trayendo solo los del día
   var promosRefUID= firebase.database().ref('promos/ciudad2')
-                      .orderByChild('fechaFin').startAt(hoy());
-
-  //Carga la lista la primera vez
-  promosRefUID.once('value').then(function(snapshot){
-    llenaPromosSnapshot(snapshot);
-  });
+                      .orderByChild('fechaFin').startAt(hoy());  
+  
 
   // Llena la lista promos con los objetos en la referencia.
   function llenaPromosSnapshot(snapshot){
@@ -38,6 +34,7 @@ angular.module('App').factory('PromOffFactory', function($interval){
     }
   }
 
+//Evento que se acciona cuando se agrega una promo 
   promosRefUID.on('child_added',function(snapshot){ 
     if(promosLista){
       if(promoValido(snapshot.val())){
@@ -46,14 +43,20 @@ angular.module('App').factory('PromOffFactory', function($interval){
     }       
   });
 
+//Evento que se acciona cuando se edita una promo 
   promosRefUID.on('child_changed',function(snapshot){ 
+    $log.log('EVENTO');
     if(promosLista){
+      $log.log('LISTA');
       if(promoValido(snapshot.val())){        
         promosLista[snapshot.key]= snapshot.val();
+      }else{
+        delete promosLista[snapshot.key];
       }
     }       
   });
 
+//Evento que se acciona cuando se elimina una promo 
   promosRefUID.on('child_removed',function(snapshot){ 
     if(promosLista){
       delete promosLista[snapshot.key];
@@ -64,27 +67,30 @@ angular.module('App').factory('PromOffFactory', function($interval){
 
 		getPromosLista: function(){
 			return promosLista;
-		}
+		},
 
+    cargaLista: function(){
+      //Carga la lista la primera vez
+      promosRefUID.once('value').then(function(snapshot){        
+            llenaPromosSnapshot(snapshot);
+          });
+    }
 	};
 
 	// Verifica que los promos estén dentro de las fechas
   function verificarPromos(){
-    entra = false;
     for(var key in promosLista){
       promo = promosLista[key];
        if(!promoValido(promo)){
         delete promosLista[key];
-        entra = true;
       }
     } 
-    if(entra) {}
   }
 
-	// Llama a verificar los promos cada 30 segundos
+	// Llama a verificar los promos cada 5 segundos
   $interval(function () {
       verificarPromos();
-  }, 10000);
+  }, 5000);
 
 return PromOffFactory;
 

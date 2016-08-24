@@ -1,24 +1,17 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location,$http,$ionicPopup,$firebaseAuth , $firebaseObject,$log, Auth, Utils) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location,$http,$ionicPopup,$log, Auth, Utils) {
   //var ref = new Firebase(FURL);
   //firebase.initializeApp(FURL);
   $scope.signIn = function (user) {
     if(angular.isDefined(user)){
     Utils.show();
     Auth.login(user);
-    Utils.hide();  
+    
       
     }
   };
 
-  firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          Utils.hide();
-          $state.go('menu.promOff');
-        } else {
-          // No user is signed in.
-        }
-    });
+  
   
 /* SEEMS NOT WORKING WELL
 

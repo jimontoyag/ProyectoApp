@@ -1,6 +1,5 @@
 'Use Strict';
-angular.module('App').controller('promOffCtrl', function ( $interval, $scope, $cordovaBarcodeScanner,$log, $state, $location,$http,$ionicPopup,  PromOffFactory) {
-
+angular.module('App').controller('promOffCtrl', function ( $interval, $scope, $cordovaBarcodeScanner,$log, $state, $location,$http,PromOffFactory) {
 
 $scope.promos = PromOffFactory.getPromosLista();
 
@@ -25,29 +24,7 @@ $scope.promos = PromOffFactory.getPromosLista();
           var ahora = moment.tz('America/Bogota');
           var finPromo = moment(''+promo.fechaFin,'YYYYMMDDHHmm');
             return finPromo.fromNow();                    
-            };
-
-  moment.updateLocale('en', {
-    relativeTime : {
-        future: "%s",
-        past:   "%s ago",
-        s:  "unos segundos",
-        m:  "un minuto",
-        mm: "%d minutos",
-        h:  "una hora",
-        hh: "%d horas",
-        d:  "un dia",
-        dd: "%d dias",
-        M:  "un mes",
-        MM: "%d meses",
-        y:  "a year",
-        yy: "%d years"
-    }
-});
-
-  $scope.profile = function () {
-      $location.path("/profile");
-  }
+            };  
 
   $scope.leerCodigo = function() {
             $cordovaBarcodeScanner.scan().then (function (imagenEscaneada) {

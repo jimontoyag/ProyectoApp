@@ -11952,3 +11952,21 @@
     return moment_with_locales;
 
 }));
+
+moment.updateLocale('en', {
+    relativeTime : {
+        future: "%s",
+        past:   "%s ago",
+        s:  "unos segundos",
+        m:  "un minuto",
+        mm: "%d minutos",
+        h:  "una hora",
+        hh: "%d horas",
+        d:  "un dia",
+        dd: "%d dias",
+        M:  "un mes",
+        MM: "%d meses",
+        y:  "a year",
+        yy: "%d years"
+    }
+});

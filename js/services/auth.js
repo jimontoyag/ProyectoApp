@@ -1,6 +1,21 @@
-angular.module('App').factory('Auth', function(Utils) {
+angular.module('App').factory('Auth', function(Utils, $state,PromOffFactory,$timeout) {
 
   var auth = firebase.auth();
+
+  auth.onAuthStateChanged(function(user) {
+        if (user) {          
+          PromOffFactory.cargaLista();
+          $timeout(preLoad, 2000);          
+        } else {
+          // No user is signed in.
+          $state.go('login');
+        }
+    });
+
+  function preLoad(){
+    Utils.hide();
+    $state.go('menu.promOff');
+  }
 
 	var Auth = {
 
